@@ -1,0 +1,41 @@
+{
+    "name": "asyncflow",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "npx jest --coverage"
+    },
+    "author": "",
+    "license": "ISC",
+    "jest": {
+        "globals": {
+            "ts-jest": {
+                "tsConfigFile": "tsconfig.json"
+            }
+        },
+        "moduleNameMapper": {
+            "^src/(.+)": "<rootDir>/src/$1"
+        },
+        "transform": {
+            "^.+\\.tsx?$": "ts-jest"
+        },
+        "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+        "moduleFileExtensions": [
+            "ts",
+            "tsx",
+            "js",
+            "jsx",
+            "json",
+            "node"
+        ]
+    },
+    "devDependencies": {
+        "@types/events": "^1.2.0",
+        "@types/jest": "^23.3.2",
+        "jest": "^23.5.0",
+        "ts-jest": "^23.1.4",
+        "ts-node": "^7.0.1",
+        "typescript": "^3.0.3"
+    }
+}
