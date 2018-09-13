@@ -1,14 +1,14 @@
-import {SimpleContent} from './simple_content'
-import {Subscriber} from './subscriber'
+import {SimpleContent} from './simple_content';
+import {Subscriber} from './subscriber';
 
-export class SimplePublisher<V,S extends Subscriber<V>> {
-    content: SimpleContent<V,S>;
+export class SimplePublisher<V, S extends Subscriber<V>> {
+    public content: SimpleContent<V, S>;
 
-    constructor(v:V) {
-        this.content = new SimpleContent<V,S>(v);
+    constructor(v: V) {
+        this.content = new SimpleContent<V, S>(v);
     }
 
-    publish() :void {
-        this.content.publish();    
+    public publish() : void {
+        this.content.publish();
     }
-};
+}

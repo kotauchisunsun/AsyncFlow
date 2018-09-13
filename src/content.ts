@@ -1,3 +1,3 @@
 export interface Content {
-    register(sub: Subscriber) :void;
-};
+    register(sub: Subscriber) : void;
+}

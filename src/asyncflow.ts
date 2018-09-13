@@ -1,6 +1,6 @@
 import {EventEmitter} from 'events';
-import {Content} from './content'
-import {Subscriber} from './subscriber'
-import {Bloadcaster} from './bloadcaster'
+import {Bloadcaster} from './bloadcaster';
+import {Content} from './content';
+import {Subscriber} from './subscriber';
 
-export { Subscriber,SimpleContent,SimplePublisher,Transformer,IfPipe };
+export { Subscriber, SimpleContent, SimplePublisher, Transformer, IfPipe };

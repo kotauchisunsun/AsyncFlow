@@ -1,24 +1,24 @@
-import {RelayContent} from './relay_content'
-import {Subscriber} from './subscriber'
-import {Content} from './content'
+import {Content} from './content';
+import {RelayContent} from './relay_content';
+import {Subscriber} from './subscriber';
 
-export class Transformer<Vin,Vout,S extends Subscriber<Vout>> implements Subscriber<Vin> {
-    content: RelayContent<Vout,S>;
-    f:(v:Vin) => Vout
+export class Transformer<Vin, Vout, S extends Subscriber<Vout>> implements Subscriber<Vin> {
+    public content: RelayContent<Vout, S>;
+    private f: (v: Vin) => Vout;
 
-    constructor(f:(v:Vin) => Vout) {
+    constructor(f: (v: Vin) => Vout) {
         this.f = f;
-        this.content = new RelayContent<Vout,S>();
+        this.content = new RelayContent<Vout, S>();
     }
 
-    emit(v:Vin) :void {
+    public emit(v: Vin) : void {
         const self = this;
-        setImmediate( () => 
+        setImmediate(() =>
             self.content.publish(self.f(v))
         );
     }
 
-    subscribe(content: Content): void {
+    public subscribe(content: Content): void {
         content.register(this);
     }
-};
+}

@@ -1,3 +1,3 @@
 export interface Subscriber<V> {
-    emit: (v:V) => void;
-};
+    emit(v: V): void;
+}

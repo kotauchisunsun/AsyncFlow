@@ -1,22 +1,21 @@
-import {Bloadcaster} from './bloadcaster'
-import {Content} from './content'
-import {Subscriber} from './subscriber'
+import {Bloadcaster} from './bloadcaster';
+import {Content} from './content';
+import {Subscriber} from './subscriber';
 
-export class SimpleContent<V,S extends Subscriber<V>> implements Content {
-    val: V;
-    bloadcaster: Bloadcaster<V,S>;
+export class SimpleContent<V, S extends Subscriber<V>> implements Content {
+    private val: V;
+    private bloadcaster: Bloadcaster<V, S>;
 
-    constructor(val:V) {
+    constructor(val: V) {
         this.val = val;
-        this.bloadcaster = new Bloadcaster<V,S>( (s,v) => s.emit(v) );
+        this.bloadcaster = new Bloadcaster<V, S>((s, v) => s.emit(v));
     }
 
-    register(sub: S) :void{
+    public register(sub: S) : void {
         this.bloadcaster.register(sub);
     }
 
-    publish() :void {
+    public publish() : void {
         this.bloadcaster.cast(this.val);
     }
-};
-
+}
