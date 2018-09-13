@@ -3,9 +3,9 @@ import {EventEmitter} from 'events';
 export class Bloadcaster<V, S> {
     private emitter: EventEmitter;
     private event_name: string;
-    private f: (s: S, v: V) => any;
+    private f: (s: S, v: V) => void;
 
-    constructor(f: (s: S, v: V) => any) {
+    constructor(f: (s: S, v: V) => void) {
         this.emitter = new EventEmitter();
         this.event_name = 'event_name';
         this.f = f;
