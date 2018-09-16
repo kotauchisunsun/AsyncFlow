@@ -80,7 +80,132 @@ b.c -> c #テスト用
 `
                 expect(() => {parser.parse(source)}).not.toThrow(peg.SyntaxError);
             });
+        });
 
+        describe("構文解析木のテスト", () => {
+            it('変数宣言のテスト', () => {
+                const parser = new MyParser().parser();
+                const A = {
+                    "type" : "var_def",
+                    "detail" : {
+                        "var_name" : "A",
+                        "js_obj" : "a"
+                    }
+                };
+
+                const B = {
+                    "type" : "var_def",
+                    "detail" : {
+                        "var_name" : "B",
+                        "js_obj" : "c"
+                    }
+                };
+
+
+                expect(parser.parse("var A = a")).toEqual({
+                    "type" : "operation_block",
+                    "detail" : {
+                        "list" : [A]
+                    }
+                });
+
+                expect(parser.parse("var B = c")).toEqual({
+                    "type" : "operation_block",
+                    "detail" : {
+                        "list" : [B]
+                    }
+                });
+            });
+
+            it('フロー宣言のテスト', () => {
+                const parser = new MyParser().parser();
+                const flow = {
+                    "type" : "flow_def",
+                    "detail" : {
+                        "from" : {
+                            "type" : "publisher",
+                            "detail" : {
+                                "val" : {
+                                    "type" : "val",
+                                    "detail" : {
+                                        "name" : "A"
+                                    }
+                                },
+                                "content" : "c"
+                            }
+                        },
+                        "to" : {
+                            "type" : "val",
+                            "detail" : {
+                                "name" : "B"
+                            }
+                        }
+                    }
+                };
+                expect(parser.parse("A.c -> B")).toEqual({
+                    "type" : "operation_block",
+                    "detail" : {
+                        "list" : [flow]
+                    }
+                });
+            });
+
+            it('複数文のテスト', () => {
+                const parser = new MyParser().parser();
+                const A = {
+                    "type" : "var_def",
+                    "detail" : {
+                        "var_name" : "A",
+                        "js_obj" : "a"
+                    }
+                };
+                const B = {
+                    "type" : "var_def",
+                    "detail" : {
+                        "var_name" : "B",
+                        "js_obj" : "b"
+                    }
+                };
+
+                expect(parser.parse("var A = a\n")).toEqual({
+                    "type" : "operation_block",
+                    "detail" : {
+                        "list" : [ A ]  
+                    }
+                });
+
+                expect(parser.parse("var A = a\nvar B = b\n")).toEqual({
+                    "type" : "operation_block",
+                    "detail" : {
+                        "list" : [ A , B]  
+                    }
+                });
+
+                expect(parser.parse("var A = a\nvar B = b")).toEqual({
+                    "type" : "operation_block",
+                    "detail" : {
+                        "list" : [ A , B]  
+                    }
+                });
+            });
+
+            /*
+            it('統合テスト', () => {
+                const parser = new MyParser().parser();
+                const source = `
+var A = a
+var B = b
+var C = c
+var D = D #使わない
+
+#ここからフロー定義
+a.c -> b
+b.c -> c #テスト用
+`
+                const data = parser.parse(source);
+                console.log(JSON.stringify(data, null , "  "));
+            });
+            */
         });
     });
 });
