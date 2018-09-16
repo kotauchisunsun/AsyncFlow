@@ -16,8 +16,12 @@ describe('pegjsのテスト', () => {
 
     describe('MyParserのテスト',() => {
         describe('構文チェックのテスト', () => {
+            let parser;
+            beforeAll( () => {
+                parser = new MyParser().parser();
+            });
+
             it('変数宣言のテスト', () => {
-                const parser = new MyParser().parser();
                 expect(() => {parser.parse("var A = a")}).not.toThrow(peg.SyntaxError);
                 expect(() => {parser.parse("var $ = $")}).not.toThrow(peg.SyntaxError);
                 expect(() => {parser.parse("var AAA = _")}).not.toThrow(peg.SyntaxError);
@@ -29,7 +33,6 @@ describe('pegjsのテスト', () => {
             });
 
             it('フロー宣言のテスト', () => {
-                const parser = new MyParser().parser();
                 expect(() => {parser.parse("A.c -> B")}).not.toThrow(peg.SyntaxError);
                 expect(() => {parser.parse("A.c->B")}).not.toThrow(peg.SyntaxError);
                 expect(() => {parser.parse("A.t -> B")}).not.toThrow(peg.SyntaxError);
@@ -41,25 +44,21 @@ describe('pegjsのテスト', () => {
             });
 
             it('空行のテスト', () => {
-                const parser = new MyParser().parser();
                 expect(() => {parser.parse("\n")}).not.toThrow(peg.SyntaxError);
                 expect(() => {parser.parse("  \n  \n")}).not.toThrow(peg.SyntaxError);
             });
 
             it('変数宣言ブロックのテスト', () => {
-                const parser = new MyParser().parser();
                 expect(() => {parser.parse("var A = a\nvar B = b")}).not.toThrow(peg.SyntaxError);
                 expect(() => {parser.parse("var A = a\n  var B = b")}).not.toThrow(peg.SyntaxError);
             });
 
             it('フロー宣言ブロックのテスト', () => {
-                const parser = new MyParser().parser();
                 expect(() => {parser.parse("A.c -> B\nB.t -> C")}).not.toThrow(peg.SyntaxError);
                 expect(() => {parser.parse("A.c -> B\n  B.t -> C")}).not.toThrow(peg.SyntaxError);
             });
 
             it('コメントのテスト', () => {
-                const parser = new MyParser().parser();
                 expect(() => {parser.parse("#comment")}).not.toThrow(peg.SyntaxError);
                 expect(() => {parser.parse("#comment1\n#comment2")}).not.toThrow(peg.SyntaxError);
                 expect(() => {parser.parse("var A = a #comment")}).not.toThrow(peg.SyntaxError);
@@ -67,7 +66,6 @@ describe('pegjsのテスト', () => {
             });
 
             it('統合テスト', () => {
-                const parser = new MyParser().parser();
                 const source = `
 var A = a
 var B = b
@@ -83,8 +81,12 @@ b.c -> c #テスト用
         });
 
         describe("構文解析木のテスト", () => {
+            let parser;
+            beforeAll( () => {
+                parser = new MyParser().parser();
+            });
+
             it('変数宣言のテスト', () => {
-                const parser = new MyParser().parser();
                 const A = {
                     "type" : "var_def",
                     "detail" : {
@@ -118,7 +120,6 @@ b.c -> c #テスト用
             });
 
             it('フロー宣言のテスト', () => {
-                const parser = new MyParser().parser();
                 const flow = {
                     "type" : "flow_def",
                     "detail" : {
@@ -151,7 +152,6 @@ b.c -> c #テスト用
             });
 
             it('複数文のテスト', () => {
-                const parser = new MyParser().parser();
                 const A = {
                     "type" : "var_def",
                     "detail" : {
