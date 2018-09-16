@@ -38,12 +38,13 @@ operation_def
   = var_def / flow_def
 
 var_def
- = "var" _ name:var _ "=" _ js:var {
+ = "var" _ init:"*"? name:var _ "=" _ js:var {
     return {
         "type" : "var_def",
         "detail" : {
             "var_name" : name,
-            "js_obj" : js
+            "js_obj" : js,
+            "init": (init ? true : false)
         }
     };
  }

@@ -14,7 +14,7 @@ describe('pegjsのテスト', () => {
         });
     });
 
-    describe('MyParserのテスト',() => {
+    describe('AsyncFlowParserのテスト',() => {
         describe('構文チェックのテスト', () => {
             let parser;
             beforeAll( () => {
@@ -23,6 +23,7 @@ describe('pegjsのテスト', () => {
 
             it('変数宣言のテスト', () => {
                 expect(() => {parser.parse("var A = a")}).not.toThrow(peg.SyntaxError);
+                expect(() => {parser.parse("var *B = a")}).not.toThrow(peg.SyntaxError);
                 expect(() => {parser.parse("var $ = $")}).not.toThrow(peg.SyntaxError);
                 expect(() => {parser.parse("var AAA = _")}).not.toThrow(peg.SyntaxError);
                 expect(() => {parser.parse("var a_10_A_$ = test")}).not.toThrow(peg.SyntaxError);
@@ -91,7 +92,8 @@ b.c -> c #テスト用
                     "type" : "var_def",
                     "detail" : {
                         "var_name" : "A",
-                        "js_obj" : "a"
+                        "js_obj" : "a",
+                        "init" : false
                     }
                 };
 
@@ -99,7 +101,17 @@ b.c -> c #テスト用
                     "type" : "var_def",
                     "detail" : {
                         "var_name" : "B",
-                        "js_obj" : "c"
+                        "js_obj" : "c",
+                        "init" : false
+                    }
+                };
+
+                const C = {
+                    "type" : "var_def",
+                    "detail" : {
+                        "var_name" : "C",
+                        "js_obj" : "c",
+                        "init" : true
                     }
                 };
 
@@ -115,6 +127,13 @@ b.c -> c #テスト用
                     "type" : "operation_block",
                     "detail" : {
                         "list" : [B]
+                    }
+                });
+
+                expect(parser.parse("var *C = c")).toEqual({
+                    "type" : "operation_block",
+                    "detail" : {
+                        "list" : [C]
                     }
                 });
             });
@@ -156,14 +175,16 @@ b.c -> c #テスト用
                     "type" : "var_def",
                     "detail" : {
                         "var_name" : "A",
-                        "js_obj" : "a"
+                        "js_obj" : "a",
+                        "init" : false
                     }
                 };
                 const B = {
                     "type" : "var_def",
                     "detail" : {
                         "var_name" : "B",
-                        "js_obj" : "b"
+                        "js_obj" : "b",
+                        "init" : false
                     }
                 };
 
