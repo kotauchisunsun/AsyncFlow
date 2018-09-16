@@ -4,37 +4,28 @@ export class MyParser{
     parser() {
         const definition = String.raw`
 
-doc = block_definition* line_definition
+doc = operation_block* operation_line
 
-block_definition
-  = blank_block / var_def_block / flow_def_block / comment_def_block
+operation_block
+ = operation_line blankline
 
-line_definition
-  = _ flow_def? var_def? _ comment_def?
+operation_line
+ = _ operation_def? _ comment_def?
 
-flow_def_block
-  = _ flow_def _ comment_def? blankline
-
-var_def_block
-  = _ var_def _ comment_def? blankline
-
-comment_def_block
-  = _ comment_def blankline
-
-blank_block
-  = _ blankline
-
-flow_def
-  = from:publisher _ "->" _ to:var { return "[" + from + "]" + " -> " + "[" + to + "]" }
+operation_def
+  = var_def / flow_def
 
 var_def
- = "var" _ name:var _ "=" _ js:var { return name + ":" + js }
+ = "var" _ name:var _ "=" _ js:var {}
+
+flow_def
+  = from:publisher _ "->" _ to:var {}
 
 comment_def
  = "#" [^\n]*
 
 publisher
-  = name:var "." content:var { return name + "." + content} 
+  = name:var "." content:var {} 
 
 var 
   = head:[a-zA-Z$_] other:[a-zA-Z0-9$_]* { return head+other.join(''); }

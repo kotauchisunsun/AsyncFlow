@@ -64,5 +64,20 @@ describe('pegjsのテスト', () => {
             expect(() => {parser.parse("var A = a #comment")}).not.toThrow(peg.SyntaxError);
             expect(() => {parser.parse("A.c -> B #comment")}).not.toThrow(peg.SyntaxError);
         });
+
+        it('統合テスト', () => {
+            const parser = new MyParser().parser();
+            const source = `
+var A = a
+var B = b
+var C = c
+var D = D #使わない
+
+#ここからフロー定義
+a.c -> b
+b.c -> c #テスト用
+`
+            expect(() => {parser.parse(source)}).not.toThrow(peg.SyntaxError);
+        });
     });
 });
