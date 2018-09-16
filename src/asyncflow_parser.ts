@@ -1,6 +1,6 @@
 const peg = require("pegjs");
 
-export class MyParser{
+export class AsyncFlowParser{
     parser() {
         const definition = String.raw`
 

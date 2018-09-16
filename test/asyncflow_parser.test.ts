@@ -1,5 +1,5 @@
 const peg = require("pegjs");
-import {MyParser} from 'src/peg_lesson';
+import {AsyncFlowParser} from 'src/asyncflow_parser';
 
 describe('pegjsのテスト', () => {
     describe('使い方のテスト',() => {
@@ -18,7 +18,7 @@ describe('pegjsのテスト', () => {
         describe('構文チェックのテスト', () => {
             let parser;
             beforeAll( () => {
-                parser = new MyParser().parser();
+                parser = new AsyncFlowParser().parser();
             });
 
             it('変数宣言のテスト', () => {
@@ -83,7 +83,7 @@ b.c -> c #テスト用
         describe("構文解析木のテスト", () => {
             let parser;
             beforeAll( () => {
-                parser = new MyParser().parser();
+                parser = new AsyncFlowParser().parser();
             });
 
             it('変数宣言のテスト', () => {
