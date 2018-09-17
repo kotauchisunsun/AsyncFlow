@@ -1,8 +1,11 @@
-const peg = require("pegjs");
+/**
+ *
+ */
 
-export class AsyncFlowParser{
-    parser() {
-        const definition = String.raw`
+export class AsyncFlowParser {
+  public parser(): Object {
+    const peg: Object = require('pegjs');
+    const definition: string = String.raw`
 
 doc = blocks:operation_block* line:operation_line? {
     const objs = blocks.filter( x => x != null );
@@ -20,7 +23,7 @@ doc = blocks:operation_block* line:operation_line? {
             return make_list(objs);
         } else {
             return make_list(objs.concat([line]));
-        } 
+        }
     } else {
         return make_list([line]);
     }
@@ -30,7 +33,7 @@ operation_block
  = line:operation_line blankline { return line }
 
 operation_line
- = _ op:operation_def? _ comment_def? { 
+ = _ op:operation_def? _ comment_def? {
     return op ? op : null;
 }
 
@@ -62,7 +65,7 @@ flow_def
                 }
             }
         }
-    }  
+    }
 }
 
 comment_def
@@ -81,10 +84,10 @@ publisher
         },
         "content": content
     }
-  }  
+  }
 }
 
-var 
+var
   = head:[a-zA-Z$_] other:[a-zA-Z0-9$_]* { return head+other.join(''); }
 
 blankline = [\n]
@@ -92,6 +95,7 @@ blankline = [\n]
 _ = [ \t]*
 
 `;
-        return peg.generate(definition);
-    }
-};
+
+    return peg.generate(definition);
+  }
+}

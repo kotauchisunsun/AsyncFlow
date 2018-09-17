@@ -3,7 +3,7 @@ import {
   DuplicateDefinitionError,
   JsObjectNotFound
 } from 'src/asyncflow_executer';
-import { AsyncFlowParser } from 'src/asyncflow_parser';
+import { AsyncFlowParser } from 'src/AsyncFlowParser';
 
 describe('AsyncFlowExecuterのテスト', () => {
   let executer: AsyncFlowExecuter;

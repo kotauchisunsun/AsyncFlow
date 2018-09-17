@@ -1,3 +1,8 @@
 {
-    "extends":["tslint-microsoft-contrib"]
+    "extends":["tslint-microsoft-contrib"],
+    "rules":{
+        "no-require-imports": false,
+        "no-submodule-imports": false,
+        "optionalDependencies" : false
+    }
 }
