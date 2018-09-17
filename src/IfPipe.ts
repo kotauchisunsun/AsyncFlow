@@ -1,4 +1,4 @@
-import {Content} from './content';
+import {IContent} from './IContent';
 import {RelayContent} from './relay_content';
 import {ISubscriber} from './ISubscriber';
 
@@ -27,7 +27,7 @@ export class IfPipe<V, S extends ISubscriber<V>> implements ISubscriber<V> {
         );
     }
 
-    public subscribe(content: Content<V>): void {
+    public subscribe(content: IContent<V>): void {
         content.register(this);
     }
 }

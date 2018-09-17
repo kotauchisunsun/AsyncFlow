@@ -1,4 +1,4 @@
 import {ISubscriber} from './ISubscriber';
-export interface Content<V> {
+export interface IContent<V> {
     register(sub: ISubscriber<V>) : void;
 }

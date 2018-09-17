@@ -1,8 +1,8 @@
 import {Bloadcaster} from './Bloadcaster';
-import {Content} from './content';
+import {IContent} from './IContent';
 import {ISubscriber} from './ISubscriber';
 
-export class SimpleContent<V, S extends ISubscriber<V>> implements Content<V> {
+export class SimpleContent<V, S extends ISubscriber<V>> implements IContent<V> {
     private val: V;
     private bloadcaster: Bloadcaster<V, S>;
 

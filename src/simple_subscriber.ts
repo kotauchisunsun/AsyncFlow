@@ -1,5 +1,5 @@
 import {EventEmitter} from 'events';
-import {Content} from './content';
+import {IContent} from './IContent';
 import {ISubscriber} from './ISubscriber';
 
 export class SimpleSubscriber<V, R> implements ISubscriber<V> {
@@ -18,7 +18,7 @@ export class SimpleSubscriber<V, R> implements ISubscriber<V> {
         setImmediate(() => this.emitter.emit(this.event_name, v));
     }
 
-    public subscribe(content: Content<V>): void {
+    public subscribe(content: IContent<V>): void {
         content.register(this);
     }
 }

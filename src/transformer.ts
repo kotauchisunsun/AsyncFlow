@@ -1,4 +1,4 @@
-import {Content} from './content';
+import {IContent} from './IContent';
 import {RelayContent} from './relay_content';
 import {ISubscriber} from './ISubscriber';
 
@@ -18,7 +18,7 @@ export class Transformer<Vin, Vout, S extends ISubscriber<Vout>> implements ISub
         );
     }
 
-    public subscribe(content: Content<Vin>): void {
+    public subscribe(content: IContent<Vin>): void {
         content.register(this);
     }
 }
