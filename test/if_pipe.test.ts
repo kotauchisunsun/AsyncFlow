@@ -1,6 +1,6 @@
 import {ISubscriber} from '../src/ISubscriber'
 import {SimpleSubscriber}  from '../src/simple_subscriber'
-import {SimplePublisher} from '../src/simple_publisher'
+import {SimplePublisher} from '../src/SimplePublisher'
 import {IfPipe} from '../src/IfPipe'
 
 describe ('asyncflowのテスト', () => {

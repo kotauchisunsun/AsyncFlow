@@ -1,5 +1,5 @@
 import {IfPipe} from './IfPipe';
-import {SimplePublisher} from './simple_publisher';
+import {SimplePublisher} from './SimplePublisher';
 import {SimpleSubscriber} from './simple_subscriber';
 import {Transformer} from './transformer';
 

@@ -1,5 +1,5 @@
 import {SimpleSubscriber}  from '../src/simple_subscriber'
-import {SimplePublisher} from '../src/simple_publisher'
+import {SimplePublisher} from '../src/SimplePublisher'
 import {ISubscriber} from '../src/ISubscriber'
 
 describe('SimplePublisherのテスト', () => {

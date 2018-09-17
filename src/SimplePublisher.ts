@@ -1,5 +1,5 @@
-import {SimpleContent} from './SimpleContent';
 import {ISubscriber} from './ISubscriber';
+import {SimpleContent} from './SimpleContent';
 
 export class SimplePublisher<V, S extends ISubscriber<V>> {
     public content: SimpleContent<V, S>;
