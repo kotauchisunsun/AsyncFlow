@@ -3,6 +3,11 @@
     "rules":{
         "completed-docs" : false,
         "missing-jsdoc" : false,
-        "no-relative-imports" : false
+        "no-relative-imports" : false,
+        "no-console" : false,
+        "typedef" : {
+            "arrow-call-signature" : false,
+            "variable-declaration" : false
+        }
     }
 }

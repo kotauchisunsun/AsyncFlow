@@ -1,39 +1,39 @@
 import {IfPipe} from './IfPipe';
 import {SimplePublisher} from './simple_publisher';
-import {SimpleSubscriber}  from './simple_subscriber';
+import {SimpleSubscriber} from './simple_subscriber';
 import {Transformer} from './transformer';
 
 const pub = new SimplePublisher(1);
-const loop_pipe = new IfPipe((x: number) => x < 100);
-const fizz_pipe = new IfPipe((x: number) => x % 3 == 0);
-const buzz_pipe = new IfPipe((x: number) => x % 5 == 0);
-const fizzbuzz_pipe = new IfPipe((x: number) => x % 15 == 0);
+const loopPipe = new IfPipe((x: number): boolean => x < 100);
+const fizzPipe = new IfPipe((x: number): boolean => x % 3 === 0);
+const buzzPipe = new IfPipe((x: number): boolean => x % 5 === 0);
+const fizzbuzzPipe = new IfPipe((x: number): boolean => x % 15 === 0);
 
-const num_sub = new SimpleSubscriber<number, void>((x: number) => {
+const numSub = new SimpleSubscriber<number, void>((x: number): void => {
     console.log(x);
 });
-const fizz_sub = new SimpleSubscriber<number, void>((x: number) => {
+const fizzSub = new SimpleSubscriber<number, void>((x: number): void => {
     console.log('fizz', x);
 });
-const buzz_sub = new SimpleSubscriber<number, void>((x: number) => {
+const buzzSub = new SimpleSubscriber<number, void>((x: number): void => {
     console.log('buzz', x);
 });
-const fizzbuzz_sub = new SimpleSubscriber<number, void>((x: number) => {
+const fizzbuzzSub = new SimpleSubscriber<number, void>((x: number): void => {
     console.log('fizzbuzz', x);
 });
-const inc_trans = new Transformer((x: number) => x + 1);
+const incTrans = new Transformer((x: number): number => x + 1);
 
-loop_pipe.subscribe(pub.content);
-fizzbuzz_pipe.subscribe(loop_pipe.trueContent);
-fizzbuzz_sub.subscribe(fizzbuzz_pipe.trueContent);
-fizz_pipe.subscribe(fizzbuzz_pipe.falseContent);
-fizz_sub.subscribe(fizz_pipe.trueContent);
-buzz_pipe.subscribe(fizz_pipe.falseContent);
-buzz_sub.subscribe(buzz_pipe.trueContent);
-num_sub.subscribe(buzz_pipe.falseContent);
+loopPipe.subscribe(pub.content);
+fizzbuzzPipe.subscribe(loopPipe.trueContent);
+fizzbuzzSub.subscribe(fizzbuzzPipe.trueContent);
+fizzPipe.subscribe(fizzbuzzPipe.falseContent);
+fizzSub.subscribe(fizzPipe.trueContent);
+buzzPipe.subscribe(fizzPipe.falseContent);
+buzzSub.subscribe(buzzPipe.trueContent);
+numSub.subscribe(buzzPipe.falseContent);
 
-inc_trans.subscribe(loop_pipe.trueContent);
-loop_pipe.subscribe(inc_trans.content);
+incTrans.subscribe(loopPipe.trueContent);
+loopPipe.subscribe(incTrans.content);
 
 /*
  pub.content -> loop_swtich
