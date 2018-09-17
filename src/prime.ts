@@ -1,4 +1,4 @@
-import {IfPipe} from './if_pipe';
+import {IfPipe} from './IfPipe';
 import {SimplePublisher} from './simple_publisher';
 import {SimpleSubscriber}  from './simple_subscriber';
 import {Transformer} from './transformer';
