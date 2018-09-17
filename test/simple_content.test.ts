@@ -1,15 +1,15 @@
-import {SimpleSubscriber}  from '../src/SimpleSubscriber'
-import {SimpleContent} from '../src/SimpleContent'
-import {ISubscriber} from '../src/ISubscriber'
+import {ISubscriber} from '../src/ISubscriber';
+import {SimpleContent} from '../src/SimpleContent';
+import {SimpleSubscriber} from '../src/SimpleSubscriber';
 
 describe('SimpleContentのテスト', () =>  {
-    it( 'SimpleContentから1を受け取る', () => {
+    it('SimpleContentから1を受け取る', () => {
         jest.useFakeTimers();
         const data = 1;
-        const sub = new SimpleSubscriber<number,void>( (x) => {
+        const sub = new SimpleSubscriber<number, void>((x) => {
             expect(x).toBe(data);
         });
-        const content = new SimpleContent<number,ISubscriber<number>>(data);
+        const content = new SimpleContent<number, ISubscriber<number>>(data);
         content.register(sub);
         content.publish();
         jest.runAllTimers();

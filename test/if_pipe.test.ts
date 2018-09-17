@@ -1,14 +1,14 @@
-import {ISubscriber} from '../src/ISubscriber'
-import {SimpleSubscriber}  from '../src/SimpleSubscriber'
-import {SimplePublisher} from '../src/SimplePublisher'
-import {IfPipe} from '../src/IfPipe'
+import {IfPipe} from '../src/IfPipe';
+import {ISubscriber} from '../src/ISubscriber';
+import {SimplePublisher} from '../src/SimplePublisher';
+import {SimpleSubscriber} from '../src/SimpleSubscriber';
 
 describe ('asyncflowのテスト', () => {
-    it( 'IfPipeからtrueを受け取る', () => {
+    it('IfPipeからtrueを受け取る', () => {
         jest.useFakeTimers();
         expect.assertions(1);
-        const pipe = new IfPipe<boolean,ISubscriber<boolean>>( (x:boolean) => x);
-        const sub = new SimpleSubscriber<boolean,void>( (x:boolean) => {
+        const pipe = new IfPipe<boolean, ISubscriber<boolean>>((x: boolean) => x);
+        const sub = new SimpleSubscriber<boolean, void>((x: boolean) => {
             expect(x).toBeTruthy();
         });
         sub.subscribe(pipe.trueContent);
@@ -16,11 +16,11 @@ describe ('asyncflowのテスト', () => {
         jest.runAllTimers();
     });
 
-    it( 'IfPipeからfalseを受け取る', () => {
+    it('IfPipeからfalseを受け取る', () => {
         jest.useFakeTimers();
         expect.assertions(1);
-        const pipe = new IfPipe<boolean,ISubscriber<boolean>>( (x:boolean) => x);
-        const sub = new SimpleSubscriber<boolean,void>( (x:boolean) => {
+        const pipe = new IfPipe<boolean, ISubscriber<boolean>>((x: boolean) => x);
+        const sub = new SimpleSubscriber<boolean, void>((x: boolean) => {
             expect(x).toBeFalsy();
         });
         sub.subscribe(pipe.falseContent);
@@ -28,12 +28,12 @@ describe ('asyncflowのテスト', () => {
         jest.runAllTimers();
     });
 
-    it( 'PublishからIfPipeを経て、trueを受け取る', () => {
-        jest.useFakeTimers()
+    it('PublishからIfPipeを経て、trueを受け取る', () => {
+        jest.useFakeTimers();
         expect.assertions(1);
-        const pub = new SimplePublisher<boolean,ISubscriber<boolean>>(true);
-        const pipe = new IfPipe<boolean,ISubscriber<boolean>>( (x:boolean) => x);
-        const sub = new SimpleSubscriber<boolean,void>( (x:boolean) => {
+        const pub = new SimplePublisher<boolean, ISubscriber<boolean>>(true);
+        const pipe = new IfPipe<boolean, ISubscriber<boolean>>((x: boolean) => x);
+        const sub = new SimpleSubscriber<boolean, void>((x: boolean) => {
             expect(x).toBe(true);
         });
 
