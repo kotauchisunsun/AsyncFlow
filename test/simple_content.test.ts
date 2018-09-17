@@ -1,4 +1,4 @@
-import {SimpleSubscriber}  from '../src/simple_subscriber'
+import {SimpleSubscriber}  from '../src/SimpleSubscriber'
 import {SimpleContent} from '../src/SimpleContent'
 import {ISubscriber} from '../src/ISubscriber'
 

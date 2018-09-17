@@ -1,5 +1,5 @@
 import {ISubscriber} from '../src/ISubscriber'
-import {SimpleSubscriber}  from '../src/simple_subscriber'
+import {SimpleSubscriber}  from '../src/SimpleSubscriber'
 import {SimplePublisher} from '../src/SimplePublisher'
 import {Transformer} from '../src/transformer'
 import {IfPipe} from '../src/IfPipe'

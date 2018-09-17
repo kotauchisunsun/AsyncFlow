@@ -1,6 +1,6 @@
 import {IfPipe} from './IfPipe';
 import {SimplePublisher} from './SimplePublisher';
-import {SimpleSubscriber} from './simple_subscriber';
+import {SimpleSubscriber} from './SimpleSubscriber';
 import {Transformer} from './transformer';
 
 const pub = new SimplePublisher(1);

@@ -4,18 +4,18 @@ import {ISubscriber} from './ISubscriber';
 
 export class SimpleSubscriber<V, R> implements ISubscriber<V> {
     private emitter: EventEmitter;
-    private event_name: string;
+    private eventName: string;
 
     constructor(f: (v: V) => R) {
         this.emitter = new EventEmitter();
-        this.event_name = 'event_name';
-        this.emitter.on(this.event_name,
+        this.eventName = 'eventName';
+        this.emitter.on(this.eventName,
                         f
         );
     }
 
     public emit(v: V): void {
-        setImmediate(() => this.emitter.emit(this.event_name, v));
+        setImmediate(() => this.emitter.emit(this.eventName, v));
     }
 
     public subscribe(content: IContent<V>): void {

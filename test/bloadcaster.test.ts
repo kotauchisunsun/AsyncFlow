@@ -1,6 +1,6 @@
 import {Bloadcaster} from '../src/Bloadcaster'
 import {ISubscriber} from '../src/ISubscriber'
-import {SimpleSubscriber}  from '../src/simple_subscriber'
+import {SimpleSubscriber}  from '../src/SimpleSubscriber'
 
 describe('BloadCasterのテスト', () => {
     it( 'BloadCasterが1を出力したとき、ISubscriberが1を受け取る.', () => {
