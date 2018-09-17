@@ -19,12 +19,12 @@ dec.subscribe(init.content);
 
 const check = new IfPipe( (x:number[]) => (x[0]>1 && x[1] % x[0] != 0));
 check.subscribe(dec.content);
-dec.subscribe(check.true_content)
+dec.subscribe(check.trueContent)
 
 const is_prime = new IfPipe( (x:number[]) => (x[0]==1 && x[1]!=1))
-is_prime.subscribe(check.false_content);
+is_prime.subscribe(check.falseContent);
 
 const sub = new SimpleSubscriber( (x:number[]) => console.log(x[1]));
-sub.subscribe(is_prime.true_content);
+sub.subscribe(is_prime.trueContent);
 
 pub.publish();

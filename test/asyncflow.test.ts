@@ -15,8 +15,8 @@ describe ('asyncflowのテスト', () => {
         });
         const trans = new Transformer<number,number,ISubscriber<number>>( (x:number) => x + 1);
         pipe.subscribe(pub.content);
-        trans.subscribe(pipe.true_content);
-        sub.subscribe(pipe.true_content);
+        trans.subscribe(pipe.trueContent);
+        sub.subscribe(pipe.trueContent);
         pipe.subscribe(trans.content);
         pub.publish();
         jest.runAllTimers();

@@ -11,7 +11,7 @@ describe ('asyncflowのテスト', () => {
         const sub = new SimpleSubscriber<boolean,void>( (x:boolean) => {
             expect(x).toBeTruthy();
         });
-        sub.subscribe(pipe.true_content);
+        sub.subscribe(pipe.trueContent);
         pipe.emit(true);
         jest.runAllTimers();
     });
@@ -23,7 +23,7 @@ describe ('asyncflowのテスト', () => {
         const sub = new SimpleSubscriber<boolean,void>( (x:boolean) => {
             expect(x).toBeFalsy();
         });
-        sub.subscribe(pipe.false_content);
+        sub.subscribe(pipe.falseContent);
         pipe.emit(false);
         jest.runAllTimers();
     });
@@ -38,7 +38,7 @@ describe ('asyncflowのテスト', () => {
         });
 
         pipe.subscribe(pub.content);
-        sub.subscribe(pipe.true_content);
+        sub.subscribe(pipe.trueContent);
         pub.publish();
         jest.runAllTimers();
     });

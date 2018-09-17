@@ -1,27 +1,26 @@
 import {IContent} from './IContent';
-import {RelayContent} from './RelayContent';
 import {ISubscriber} from './ISubscriber';
+import {RelayContent} from './RelayContent';
 
 export class IfPipe<V, S extends ISubscriber<V>> implements ISubscriber<V> {
-    public true_content: RelayContent<V, S>;
-    public false_content: RelayContent<V, S>;
+    public trueContent: RelayContent<V, S>;
+    public falseContent: RelayContent<V, S>;
     private f: (v: V) => boolean;
 
     constructor(f: (v: V) => boolean) {
-        this.true_content = new RelayContent<V, S>();
-        this.false_content = new RelayContent<V, S>();
+        this.trueContent = new RelayContent<V, S>();
+        this.falseContent = new RelayContent<V, S>();
 
         this.f = f;
     }
 
     public emit(v: V) : void {
-        const self = this;
         setImmediate(
             () => {
-                if (self.f(v)) {
-                    self.true_content.publish(v);
+                if (this.f(v)) {
+                    this.trueContent.publish(v);
                 } else {
-                    self.false_content.publish(v);
+                    this.falseContent.publish(v);
                 }
             }
         );

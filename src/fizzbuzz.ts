@@ -24,26 +24,26 @@ const fizzbuzz_sub = new SimpleSubscriber<number, void>((x: number) => {
 const inc_trans = new Transformer((x: number) => x + 1);
 
 loop_pipe.subscribe(pub.content);
-fizzbuzz_pipe.subscribe(loop_pipe.true_content);
-fizzbuzz_sub.subscribe(fizzbuzz_pipe.true_content);
-fizz_pipe.subscribe(fizzbuzz_pipe.false_content);
-fizz_sub.subscribe(fizz_pipe.true_content);
-buzz_pipe.subscribe(fizz_pipe.false_content);
-buzz_sub.subscribe(buzz_pipe.true_content);
-num_sub.subscribe(buzz_pipe.false_content);
+fizzbuzz_pipe.subscribe(loop_pipe.trueContent);
+fizzbuzz_sub.subscribe(fizzbuzz_pipe.trueContent);
+fizz_pipe.subscribe(fizzbuzz_pipe.falseContent);
+fizz_sub.subscribe(fizz_pipe.trueContent);
+buzz_pipe.subscribe(fizz_pipe.falseContent);
+buzz_sub.subscribe(buzz_pipe.trueContent);
+num_sub.subscribe(buzz_pipe.falseContent);
 
-inc_trans.subscribe(loop_pipe.true_content);
+inc_trans.subscribe(loop_pipe.trueContent);
 loop_pipe.subscribe(inc_trans.content);
 
 /*
  pub.content -> loop_swtich
- loop_switch.true_content -> fizzbuzz_switch
- fizzbuzz_switch.true_content -> fizzbuzz_sub
- fizzbuzz_switch.false_content -> fizz_switch
- fizz_switch.true_content -> fizz_sub
- fizz_switch.false_content -> buzz_switch
- buzz_swtich.true_content -> buzz_sub
- buzz_switch.false_content -> num_sub
+ loop_switch.trueContent -> fizzbuzz_switch
+ fizzbuzz_switch.trueContent -> fizzbuzz_sub
+ fizzbuzz_switch.falseContent -> fizz_switch
+ fizz_switch.trueContent -> fizz_sub
+ fizz_switch.falseContent -> buzz_switch
+ buzz_swtich.trueContent -> buzz_sub
+ buzz_switch.falseContent -> num_sub
 */
 
 pub.publish();
