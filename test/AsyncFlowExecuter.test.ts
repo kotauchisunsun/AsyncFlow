@@ -2,7 +2,7 @@ import pegjs from 'pegjs';
 import {
   AsyncFlowExecuter,
   DuplicateDefinitionError,
-  Iast,
+  IAst,
   JsObjectNotFound,
   Locals
 } from '../src/AsyncFlowExecuter';
@@ -22,7 +22,7 @@ describe('AsyncFlowExecuterのテスト', () => {
       const locals: Locals = {
         a: 'a'
       };
-      const ast: Iast = <Iast>parser.parse('var A = a');
+      const ast: IAst = <IAst>parser.parse('var A = a');
       expect(() => {
         executer.run(locals, ast);
       }).not.toThrow();
@@ -32,7 +32,7 @@ describe('AsyncFlowExecuterのテスト', () => {
       const locals: Locals = {
         a: 'a'
       };
-      const ast: Iast = <Iast>parser.parse('var A = a\nvar A = a');
+      const ast: IAst = <IAst>parser.parse('var A = a\nvar A = a');
       expect(() => {
         executer.run(locals, ast);
       }).toThrow(DuplicateDefinitionError);
@@ -42,7 +42,7 @@ describe('AsyncFlowExecuterのテスト', () => {
       const locals: Locals = {
         a: 'a'
       };
-      const ast: Iast = <Iast>parser.parse('var A = b');
+      const ast: IAst = <IAst>parser.parse('var A = b');
       expect(() => {
         executer.run(locals, ast);
       }).toThrow(JsObjectNotFound);
