@@ -4,6 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "watch": "npx tsc --watch",
         "test": "npx jest --coverage",
         "lint": "npx tslint -p tsconfig.json",
         "fix": "npx tslint -p tsconfig.json --fix"
