@@ -1,4 +1,4 @@
-import {Subscriber} from './subscriber';
+import {ISubscriber} from './ISubscriber';
 export interface Content<V> {
-    register(sub: Subscriber<V>) : void;
+    register(sub: ISubscriber<V>) : void;
 }

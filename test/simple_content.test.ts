@@ -1,6 +1,6 @@
 import {SimpleSubscriber}  from '../src/simple_subscriber'
 import {SimpleContent} from '../src/simple_content'
-import {Subscriber} from '../src/subscriber'
+import {ISubscriber} from '../src/ISubscriber'
 
 describe('SimpleContentのテスト', () =>  {
     it( 'SimpleContentから1を受け取る', () => {
@@ -9,7 +9,7 @@ describe('SimpleContentのテスト', () =>  {
         const sub = new SimpleSubscriber<number,void>( (x) => {
             expect(x).toBe(data);
         });
-        const content = new SimpleContent<number,Subscriber<number>>(data);
+        const content = new SimpleContent<number,ISubscriber<number>>(data);
         content.register(sub);
         content.publish();
         jest.runAllTimers();

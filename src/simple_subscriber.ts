@@ -1,8 +1,8 @@
 import {EventEmitter} from 'events';
 import {Content} from './content';
-import {Subscriber} from './subscriber';
+import {ISubscriber} from './ISubscriber';
 
-export class SimpleSubscriber<V, R> implements Subscriber<V> {
+export class SimpleSubscriber<V, R> implements ISubscriber<V> {
     private emitter: EventEmitter;
     private event_name: string;
 

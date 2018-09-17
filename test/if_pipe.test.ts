@@ -1,4 +1,4 @@
-import {Subscriber} from '../src/subscriber'
+import {ISubscriber} from '../src/ISubscriber'
 import {SimpleSubscriber}  from '../src/simple_subscriber'
 import {SimplePublisher} from '../src/simple_publisher'
 import {IfPipe} from '../src/if_pipe'
@@ -7,7 +7,7 @@ describe ('asyncflowのテスト', () => {
     it( 'IfPipeからtrueを受け取る', () => {
         jest.useFakeTimers();
         expect.assertions(1);
-        const pipe = new IfPipe<boolean,Subscriber<boolean>>( (x:boolean) => x);
+        const pipe = new IfPipe<boolean,ISubscriber<boolean>>( (x:boolean) => x);
         const sub = new SimpleSubscriber<boolean,void>( (x:boolean) => {
             expect(x).toBeTruthy();
         });
@@ -19,7 +19,7 @@ describe ('asyncflowのテスト', () => {
     it( 'IfPipeからfalseを受け取る', () => {
         jest.useFakeTimers();
         expect.assertions(1);
-        const pipe = new IfPipe<boolean,Subscriber<boolean>>( (x:boolean) => x);
+        const pipe = new IfPipe<boolean,ISubscriber<boolean>>( (x:boolean) => x);
         const sub = new SimpleSubscriber<boolean,void>( (x:boolean) => {
             expect(x).toBeFalsy();
         });
@@ -31,8 +31,8 @@ describe ('asyncflowのテスト', () => {
     it( 'PublishからIfPipeを経て、trueを受け取る', () => {
         jest.useFakeTimers()
         expect.assertions(1);
-        const pub = new SimplePublisher<boolean,Subscriber<boolean>>(true);
-        const pipe = new IfPipe<boolean,Subscriber<boolean>>( (x:boolean) => x);
+        const pub = new SimplePublisher<boolean,ISubscriber<boolean>>(true);
+        const pipe = new IfPipe<boolean,ISubscriber<boolean>>( (x:boolean) => x);
         const sub = new SimpleSubscriber<boolean,void>( (x:boolean) => {
             expect(x).toBe(true);
         });

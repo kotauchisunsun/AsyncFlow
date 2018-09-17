@@ -1,8 +1,8 @@
 import {Content} from './content';
 import {RelayContent} from './relay_content';
-import {Subscriber} from './subscriber';
+import {ISubscriber} from './ISubscriber';
 
-export class Transformer<Vin, Vout, S extends Subscriber<Vout>> implements Subscriber<Vin> {
+export class Transformer<Vin, Vout, S extends ISubscriber<Vout>> implements ISubscriber<Vin> {
     public content: RelayContent<Vout, S>;
     private f: (v: Vin) => Vout;
 

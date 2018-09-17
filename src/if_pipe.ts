@@ -1,8 +1,8 @@
 import {Content} from './content';
 import {RelayContent} from './relay_content';
-import {Subscriber} from './subscriber';
+import {ISubscriber} from './ISubscriber';
 
-export class IfPipe<V, S extends Subscriber<V>> implements Subscriber<V> {
+export class IfPipe<V, S extends ISubscriber<V>> implements ISubscriber<V> {
     public true_content: RelayContent<V, S>;
     public false_content: RelayContent<V, S>;
     private f: (v: V) => boolean;

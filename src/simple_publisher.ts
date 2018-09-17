@@ -1,7 +1,7 @@
 import {SimpleContent} from './simple_content';
-import {Subscriber} from './subscriber';
+import {ISubscriber} from './ISubscriber';
 
-export class SimplePublisher<V, S extends Subscriber<V>> {
+export class SimplePublisher<V, S extends ISubscriber<V>> {
     public content: SimpleContent<V, S>;
 
     constructor(v: V) {
