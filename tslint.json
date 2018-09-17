@@ -3,6 +3,8 @@
     "rules":{
         "no-require-imports": false,
         "no-submodule-imports": false,
-        "optionalDependencies" : false
+        "optionalDependencies" : false,
+        "completed-docs" : false,
+        "missing-jsdoc" : false
     }
 }

@@ -1,6 +1,7 @@
-/**
- *
- */
+interface Iast {
+  type: string;
+  detail: object;
+}
 
 export class DuplicateDefinitionError implements Error {
   public name: string;
@@ -31,24 +32,34 @@ export class JsObjectNotFound implements Error {
 }
 
 export class AsyncFlowExecuter {
-  public vals: Object;
+  public vals: { [key: string]: Object };
 
   constructor() {
     this.vals = {};
   }
 
-  public run(locals: Object, ast: Object): void {
+  public run<T extends Iast>(locals: { [key: string]: Object }, ast: T): void {
     if (ast.type === 'operation_block') {
-      ast.detail.list.forEach((n: Object) => this.run(locals, n));
+      interface IoperationBlock {
+        list: Iast[];
+      }
+      const block: IoperationBlock = <IoperationBlock>ast.detail;
+      block.list.forEach((n: Iast) => this.run(locals, n));
     } else if (ast.type === 'var_def') {
-      const name: string = ast.detail.var_name;
-      const js_obj: string = ast.detail.js_obj;
+      interface IvarDef {
+        var_name: string;
+        js_obj: string;
+      }
 
-      if (this.vals[name]) {
+      const t: IvarDef = <IvarDef>ast.detail;
+      const name: string = t.var_name;
+      const jsObj: string = t.js_obj;
+
+      if (this.vals[name] != null) {
         throw new DuplicateDefinitionError();
       } else {
-        if (locals[js_obj]) {
-          this.vals[name] = locals[js_obj];
+        if (locals[jsObj] != null) {
+          this.vals[name] = locals[jsObj];
         } else {
           throw new JsObjectNotFound();
         }

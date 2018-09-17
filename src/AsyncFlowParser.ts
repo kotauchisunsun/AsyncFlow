@@ -1,11 +1,8 @@
-/**
- *
- */
+import pegjs from 'pegjs';
 
 export class AsyncFlowParser {
-  public parser(): Object {
-    const peg: Object = require('pegjs');
-    const definition: string = String.raw`
+  public parser(): pegjs.Parser {
+    const definition: string = `
 
 doc = blocks:operation_block* line:operation_line? {
     const objs = blocks.filter( x => x != null );
@@ -69,7 +66,7 @@ flow_def
 }
 
 comment_def
- = "#" [^\n]*
+ = "#" [^\\n]*
 
 publisher
   = name:var "." content:var {
@@ -90,12 +87,12 @@ publisher
 var
   = head:[a-zA-Z$_] other:[a-zA-Z0-9$_]* { return head+other.join(''); }
 
-blankline = [\n]
+blankline = [\\n]
 
-_ = [ \t]*
+_ = [ \\t]*
 
 `;
 
-    return peg.generate(definition);
+    return pegjs.generate(definition);
   }
 }
