@@ -1,8 +1,11 @@
+/**
+ *
+ */
 import {
   AsyncFlowExecuter,
   DuplicateDefinitionError,
   JsObjectNotFound
-} from 'src/asyncflow_executer';
+} from 'src/AsyncFlowExecuter';
 import { AsyncFlowParser } from 'src/AsyncFlowParser';
 
 describe('AsyncFlowExecuterのテスト', () => {
