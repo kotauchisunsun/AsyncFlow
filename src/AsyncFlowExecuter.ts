@@ -55,9 +55,9 @@ export class AsyncFlowExecuter {
         js_obj: string;
       }
 
-      const t: IVarDef = <IVarDef>ast.detail;
-      const name: string = t.var_name;
-      const jsObj: string = t.js_obj;
+      const detail: IVarDef = <IVarDef>ast.detail;
+      const name: string = detail.var_name;
+      const jsObj: string = detail.js_obj;
 
       if (this.vals[name] != null) {
         throw new DuplicateDefinitionError();
