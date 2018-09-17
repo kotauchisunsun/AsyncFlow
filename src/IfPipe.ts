@@ -1,5 +1,5 @@
 import {IContent} from './IContent';
-import {RelayContent} from './relay_content';
+import {RelayContent} from './RelayContent';
 import {ISubscriber} from './ISubscriber';
 
 export class IfPipe<V, S extends ISubscriber<V>> implements ISubscriber<V> {

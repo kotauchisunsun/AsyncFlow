@@ -1,5 +1,5 @@
 import {IContent} from './IContent';
-import {RelayContent} from './relay_content';
+import {RelayContent} from './RelayContent';
 import {ISubscriber} from './ISubscriber';
 
 export class Transformer<Vin, Vout, S extends ISubscriber<Vout>> implements ISubscriber<Vin> {

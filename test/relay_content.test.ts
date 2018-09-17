@@ -1,5 +1,5 @@
 import {SimpleSubscriber}  from '../src/simple_subscriber'
-import {RelayContent} from '../src/relay_content'
+import {RelayContent} from '../src/RelayContent'
 import {ISubscriber} from '../src/ISubscriber'
 
 describe('RelayContentのテスト', () => {
