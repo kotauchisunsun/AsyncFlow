@@ -1,5 +1,5 @@
 import {SimpleSubscriber}  from '../src/simple_subscriber'
-import {SimpleContent} from '../src/simple_content'
+import {SimpleContent} from '../src/SimpleContent'
 import {ISubscriber} from '../src/ISubscriber'
 
 describe('SimpleContentのテスト', () =>  {

@@ -8,7 +8,7 @@ export class SimpleContent<V, S extends ISubscriber<V>> implements IContent<V> {
 
     constructor(val: V) {
         this.val = val;
-        this.bloadcaster = new Bloadcaster<V, S>((s, v) => s.emit(v));
+        this.bloadcaster = new Bloadcaster<V, S>((s, v) => {s.emit(v); });
     }
 
     public register(sub: S) : void {
