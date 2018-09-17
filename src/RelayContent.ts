@@ -6,7 +6,7 @@ export class RelayContent<V, S extends ISubscriber<V>> implements IContent<V> {
     private bloadcaster: Bloadcaster<V, S>;
 
     constructor() {
-        this.bloadcaster = new Bloadcaster<V, S>((s, v) => s.emit(v));
+        this.bloadcaster = new Bloadcaster<V, S>((s: S, v: V): void => {s.emit(v); });
     }
 
     public register(sub: S) : void {
