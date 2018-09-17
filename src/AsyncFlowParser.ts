@@ -8,7 +8,7 @@ doc = blocks:operation_block* line:operation_line? {
     const objs = blocks.filter( x => x != null );
     const make_list = (objs) => {
         return {
-            "type" : "operation_block",
+            "node_type" : "operation_block",
             "detail" : {
                 "list" : objs
             }
@@ -40,7 +40,7 @@ operation_def
 var_def
  = "var" _ init:"*"? name:var _ "=" _ js:var {
     return {
-        "type" : "var_def",
+        "node_type" : "var_def",
         "detail" : {
             "var_name" : name,
             "js_obj" : js,
@@ -52,11 +52,11 @@ var_def
 flow_def
   = from:publisher _ "->" _ to:var {
     return {
-        "type" : "flow_def",
+        "node_type" : "flow_def",
         "detail" : {
             "from" : from,
             "to" : {
-                "type" : "val",
+                "node_type" : "val",
                 "detail" : {
                     "name" : to
                 }
@@ -71,10 +71,10 @@ comment_def
 publisher
   = name:var "." content:var {
   return {
-    "type" : "publisher",
+    "node_type" : "publisher",
     "detail" : {
         "val": {
-            "type" : "val",
+            "node_type" : "val",
             "detail" : {
                 "name" : name
             }

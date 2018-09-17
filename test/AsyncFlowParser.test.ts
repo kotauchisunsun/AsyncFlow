@@ -1,5 +1,5 @@
-import { AsyncFlowParser } from '../src/AsyncFlowParser';
 import pegjs from 'pegjs';
+import { AsyncFlowParser } from '../src/AsyncFlowParser';
 
 describe('pegjsのテスト', () => {
   describe('使い方のテスト', () => {
@@ -147,7 +147,7 @@ b.c -> c #テスト用
 
       it('変数宣言のテスト', () => {
         const A: Object = {
-          type: 'var_def',
+          node_type: 'var_def',
           detail: {
             var_name: 'A',
             js_obj: 'a',
@@ -156,7 +156,7 @@ b.c -> c #テスト用
         };
 
         const B: Object = {
-          type: 'var_def',
+          node_type: 'var_def',
           detail: {
             var_name: 'B',
             js_obj: 'c',
@@ -165,7 +165,7 @@ b.c -> c #テスト用
         };
 
         const C: Object = {
-          type: 'var_def',
+          node_type: 'var_def',
           detail: {
             var_name: 'C',
             js_obj: 'c',
@@ -174,21 +174,21 @@ b.c -> c #テスト用
         };
 
         expect(parser.parse('var A = a')).toEqual({
-          type: 'operation_block',
+          node_type: 'operation_block',
           detail: {
             list: [A]
           }
         });
 
         expect(parser.parse('var B = c')).toEqual({
-          type: 'operation_block',
+          node_type: 'operation_block',
           detail: {
             list: [B]
           }
         });
 
         expect(parser.parse('var *C = c')).toEqual({
-          type: 'operation_block',
+          node_type: 'operation_block',
           detail: {
             list: [C]
           }
@@ -197,13 +197,13 @@ b.c -> c #テスト用
 
       it('フロー宣言のテスト', () => {
         const flow: Object = {
-          type: 'flow_def',
+          node_type: 'flow_def',
           detail: {
             from: {
-              type: 'publisher',
+              node_type: 'publisher',
               detail: {
                 val: {
-                  type: 'val',
+                  node_type: 'val',
                   detail: {
                     name: 'A'
                   }
@@ -212,7 +212,7 @@ b.c -> c #テスト用
               }
             },
             to: {
-              type: 'val',
+              node_type: 'val',
               detail: {
                 name: 'B'
               }
@@ -220,7 +220,7 @@ b.c -> c #テスト用
           }
         };
         expect(parser.parse('A.c -> B')).toEqual({
-          type: 'operation_block',
+          node_type: 'operation_block',
           detail: {
             list: [flow]
           }
@@ -229,7 +229,7 @@ b.c -> c #テスト用
 
       it('複数文のテスト', () => {
         const A: Object = {
-          type: 'var_def',
+          node_type: 'var_def',
           detail: {
             var_name: 'A',
             js_obj: 'a',
@@ -237,7 +237,7 @@ b.c -> c #テスト用
           }
         };
         const B: Object = {
-          type: 'var_def',
+          node_type: 'var_def',
           detail: {
             var_name: 'B',
             js_obj: 'b',
@@ -246,21 +246,21 @@ b.c -> c #テスト用
         };
 
         expect(parser.parse('var A = a\n')).toEqual({
-          type: 'operation_block',
+          node_type: 'operation_block',
           detail: {
             list: [A]
           }
         });
 
         expect(parser.parse('var A = a\nvar B = b\n')).toEqual({
-          type: 'operation_block',
+          node_type: 'operation_block',
           detail: {
             list: [A, B]
           }
         });
 
         expect(parser.parse('var A = a\nvar B = b')).toEqual({
-          type: 'operation_block',
+          node_type: 'operation_block',
           detail: {
             list: [A, B]
           }

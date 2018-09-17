@@ -1,5 +1,5 @@
 export interface Iast {
-  type: string;
+  node_type: string;
   detail: object;
 }
 
@@ -41,13 +41,15 @@ export class AsyncFlowExecuter {
   }
 
   public run<T extends Iast>(locals: Locals, ast: T): void {
-    if (ast.type === 'operation_block') {
+    if (ast.node_type === 'operation_block') {
       interface IoperationBlock {
         list: Iast[];
       }
       const block: IoperationBlock = <IoperationBlock>ast.detail;
-      block.list.forEach((n: Iast) => this.run(locals, n));
-    } else if (ast.type === 'var_def') {
+      for (const n of block.list) {
+        this.run(locals, n);
+      }
+    } else if (ast.node_type === 'var_def') {
       interface IvarDef {
         var_name: string;
         js_obj: string;
