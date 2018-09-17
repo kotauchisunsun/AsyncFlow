@@ -1,7 +1,9 @@
-interface Iast {
+export interface Iast {
   type: string;
   detail: object;
 }
+
+export type Locals = { [key: string]: Object };
 
 export class DuplicateDefinitionError implements Error {
   public name: string;
@@ -38,7 +40,7 @@ export class AsyncFlowExecuter {
     this.vals = {};
   }
 
-  public run<T extends Iast>(locals: { [key: string]: Object }, ast: T): void {
+  public run<T extends Iast>(locals: Locals, ast: T): void {
     if (ast.type === 'operation_block') {
       interface IoperationBlock {
         list: Iast[];

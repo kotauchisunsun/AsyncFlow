@@ -1,6 +1,6 @@
-import {SimpleSubscriber}  from 'src/simple_subscriber'
-import {SimpleContent} from 'src/simple_content'
-import {Subscriber} from 'src/subscriber'
+import {SimpleSubscriber}  from '../src/simple_subscriber'
+import {SimpleContent} from '../src/simple_content'
+import {Subscriber} from '../src/subscriber'
 
 describe('SimpleContentのテスト', () =>  {
     it( 'SimpleContentから1を受け取る', () => {

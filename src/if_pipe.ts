@@ -27,7 +27,7 @@ export class IfPipe<V, S extends Subscriber<V>> implements Subscriber<V> {
         );
     }
 
-    public subscribe(content: Content): void {
+    public subscribe(content: Content<V>): void {
         content.register(this);
     }
 }

@@ -2,7 +2,7 @@ import {Bloadcaster} from './bloadcaster';
 import {Content} from './content';
 import {Subscriber} from './subscriber';
 
-export class RelayContent<V, S extends Subscriber<V>> implements Content {
+export class RelayContent<V, S extends Subscriber<V>> implements Content<V> {
     private bloadcaster: Bloadcaster<V, S>;
 
     constructor() {

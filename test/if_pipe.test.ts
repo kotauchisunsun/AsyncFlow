@@ -1,7 +1,7 @@
-import {Subscriber} from 'src/subscriber'
-import {SimpleSubscriber}  from 'src/simple_subscriber'
-import {SimplePublisher} from 'src/simple_publisher'
-import {IfPipe} from 'src/if_pipe'
+import {Subscriber} from '../src/subscriber'
+import {SimpleSubscriber}  from '../src/simple_subscriber'
+import {SimplePublisher} from '../src/simple_publisher'
+import {IfPipe} from '../src/if_pipe'
 
 describe ('asyncflowのテスト', () => {
     it( 'IfPipeからtrueを受け取る', () => {

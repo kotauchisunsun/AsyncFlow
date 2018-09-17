@@ -1,4 +1,4 @@
-import {SimpleSubscriber} from 'src/simple_subscriber'
+import {SimpleSubscriber} from '../src/simple_subscriber'
 
 describe('SimpleSubscriberのテスト', () => {
     it( 'SimpleSubscriberが1を受け取る', () => {

@@ -1,6 +1,6 @@
-import {SimpleSubscriber}  from 'src/simple_subscriber'
-import {SimplePublisher} from 'src/simple_publisher'
-import {Subscriber} from 'src/subscriber'
+import {SimpleSubscriber}  from '../src/simple_subscriber'
+import {SimplePublisher} from '../src/simple_publisher'
+import {Subscriber} from '../src/subscriber'
 
 describe('SimplePublisherのテスト', () => {
     it( 'SimplePublisherから1を受け取る', () => {

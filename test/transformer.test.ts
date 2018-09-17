@@ -1,7 +1,7 @@
-import {Subscriber} from 'src/subscriber'
-import {SimpleSubscriber}  from 'src/simple_subscriber'
-import {SimplePublisher} from 'src/simple_publisher'
-import {Transformer} from 'src/transformer'
+import {Subscriber} from '../src/subscriber'
+import {SimpleSubscriber}  from '../src/simple_subscriber'
+import {SimplePublisher} from '../src/simple_publisher'
+import {Transformer} from '../src/transformer'
 
 describe('Transformerのテスト', () => {
     it( 'Transformerから1を受け取る', () => {

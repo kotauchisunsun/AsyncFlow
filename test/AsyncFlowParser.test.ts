@@ -1,37 +1,24 @@
-/**
- *
- */
-
-import { AsyncFlowParser } from 'src/AsyncFlowParser';
+import { AsyncFlowParser } from '../src/AsyncFlowParser';
+import pegjs from 'pegjs';
 
 describe('pegjsのテスト', () => {
   describe('使い方のテスト', () => {
-    let peg: Object;
-    beforeEach(() => {
-      peg = require('pegjs');
-    });
-
     it('成功するサンプルの実行', () => {
-      const parser: Object = peg.generate('start = (\'a\' / \'b\')+');
+      const parser: pegjs.Parser = pegjs.generate('start = ("a" / "b")+');
       expect(parser.parse('abba')).toEqual(['a', 'b', 'b', 'a']);
     });
 
     it('失敗するサンプルの実行', () => {
-      const parser: Object = peg.generate('start = (\'a\' / \'b\')+');
+      const parser: pegjs.Parser = pegjs.generate('start = (\'a\' / \'b\')+');
       expect(() => {
         parser.parse('abcd');
-      }).toThrow(peg.SyntaxError);
+      }).toThrow();
     });
   });
 
   describe('AsyncFlowParserのテスト', () => {
-    let peg: Object;
-    beforeEach(() => {
-      peg = require('pegjs');
-    });
-
     describe('構文チェックのテスト', () => {
-      let parser: AsyncFlowParser;
+      let parser: pegjs.Parser;
       beforeAll(() => {
         parser = new AsyncFlowParser().parser();
       });
@@ -39,100 +26,100 @@ describe('pegjsのテスト', () => {
       it('変数宣言のテスト', () => {
         expect(() => {
           parser.parse('var A = a');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
         expect(() => {
           parser.parse('var *B = a');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
         expect(() => {
           parser.parse('var $ = $');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
         expect(() => {
           parser.parse('var AAA = _');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
         expect(() => {
           parser.parse('var a_10_A_$ = test');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
         expect(() => {
           parser.parse('0');
-        }).toThrow(peg.SyntaxError);
+        }).toThrow();
         expect(() => {
           parser.parse('var a');
-        }).toThrow(peg.SyntaxError);
+        }).toThrow();
         expect(() => {
           parser.parse('var _ = ');
-        }).toThrow(peg.SyntaxError);
+        }).toThrow();
         expect(() => {
           parser.parse('var b = 0');
-        }).toThrow(peg.SyntaxError);
+        }).toThrow();
       });
 
       it('フロー宣言のテスト', () => {
         expect(() => {
           parser.parse('A.c -> B');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
         expect(() => {
           parser.parse('A.c->B');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
         expect(() => {
           parser.parse('A.t -> B');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
         expect(() => {
           parser.parse('A.$ -> B');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
         expect(() => {
           parser.parse('A -> B');
-        }).toThrow(peg.SyntaxError);
+        }).toThrow();
         expect(() => {
           parser.parse('A->B.c');
-        }).toThrow(peg.SyntaxError);
+        }).toThrow();
         expect(() => {
           parser.parse('A.c->');
-        }).toThrow(peg.SyntaxError);
+        }).toThrow();
         expect(() => {
           parser.parse('->B');
-        }).toThrow(peg.SyntaxError);
+        }).toThrow();
       });
 
       it('空行のテスト', () => {
         expect(() => {
           parser.parse('\n');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
         expect(() => {
           parser.parse('  \n  \n');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
       });
 
       it('変数宣言ブロックのテスト', () => {
         expect(() => {
           parser.parse('var A = a\nvar B = b');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
         expect(() => {
           parser.parse('var A = a\n  var B = b');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
       });
 
       it('フロー宣言ブロックのテスト', () => {
         expect(() => {
           parser.parse('A.c -> B\nB.t -> C');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
         expect(() => {
           parser.parse('A.c -> B\n  B.t -> C');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
       });
 
       it('コメントのテスト', () => {
         expect(() => {
           parser.parse('#comment');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
         expect(() => {
           parser.parse('#comment1\n#comment2');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
         expect(() => {
           parser.parse('var A = a #comment');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
         expect(() => {
           parser.parse('A.c -> B #comment');
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
       });
 
       it('統合テスト', () => {
@@ -148,12 +135,12 @@ b.c -> c #テスト用
 `;
         expect(() => {
           parser.parse(source);
-        }).not.toThrow(peg.SyntaxError);
+        }).not.toThrow();
       });
     });
 
     describe('構文解析木のテスト', () => {
-      let parser: Object;
+      let parser: pegjs.Parser;
       beforeAll(() => {
         parser = new AsyncFlowParser().parser();
       });

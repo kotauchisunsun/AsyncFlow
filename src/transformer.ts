@@ -18,7 +18,7 @@ export class Transformer<Vin, Vout, S extends Subscriber<Vout>> implements Subsc
         );
     }
 
-    public subscribe(content: Content): void {
+    public subscribe(content: Content<Vin>): void {
         content.register(this);
     }
 }

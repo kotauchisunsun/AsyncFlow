@@ -2,7 +2,7 @@ import {Bloadcaster} from './bloadcaster';
 import {Content} from './content';
 import {Subscriber} from './subscriber';
 
-export class SimpleContent<V, S extends Subscriber<V>> implements Content {
+export class SimpleContent<V, S extends Subscriber<V>> implements Content<V> {
     private val: V;
     private bloadcaster: Bloadcaster<V, S>;
 

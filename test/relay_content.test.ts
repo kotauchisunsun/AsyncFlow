@@ -1,6 +1,6 @@
-import {SimpleSubscriber}  from 'src/simple_subscriber'
-import {RelayContent} from 'src/relay_content'
-import {Subscriber} from 'src/subscriber'
+import {SimpleSubscriber}  from '../src/simple_subscriber'
+import {RelayContent} from '../src/relay_content'
+import {Subscriber} from '../src/subscriber'
 
 describe('RelayContentのテスト', () => {
     it( 'RelayContentから1を受け取る', () => {

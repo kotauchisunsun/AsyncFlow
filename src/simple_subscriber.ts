@@ -18,7 +18,7 @@ export class SimpleSubscriber<V, R> implements Subscriber<V> {
         setImmediate(() => this.emitter.emit(this.event_name, v));
     }
 
-    public subscribe(content: Content): void {
+    public subscribe(content: Content<V>): void {
         content.register(this);
     }
 }

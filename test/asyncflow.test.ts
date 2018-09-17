@@ -1,8 +1,8 @@
-import {Subscriber} from 'src/subscriber'
-import {SimpleSubscriber}  from 'src/simple_subscriber'
-import {SimplePublisher} from 'src/simple_publisher'
-import {Transformer} from 'src/transformer'
-import {IfPipe} from 'src/if_pipe'
+import {Subscriber} from '../src/subscriber'
+import {SimpleSubscriber}  from '../src/simple_subscriber'
+import {SimplePublisher} from '../src/simple_publisher'
+import {Transformer} from '../src/transformer'
+import {IfPipe} from '../src/if_pipe'
 
 describe ('asyncflowのテスト', () => {
     it( 'ループ処理で1,2,3,4を生成する', () => {
