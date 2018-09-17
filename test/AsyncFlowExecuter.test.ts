@@ -47,5 +47,15 @@ describe('AsyncFlowExecuterのテスト', () => {
         executer.run(locals, ast);
       }).toThrow(JsObjectNotFound);
     });
+
+    it('複数の宣言', () => {
+      const locals: Locals = {
+        a: 'a'
+      };
+      const ast: IAst = <IAst>parser.parse('var A = a\nvar B = a');
+      expect(() => {
+        executer.run(locals, ast);
+      }).not.toThrow();
+    });
   });
 });
