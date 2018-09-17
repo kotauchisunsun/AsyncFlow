@@ -4,7 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "npx jest --coverage"
+        "test": "npx jest --coverage",
+        "lint": "npx tslint -p tsconfig.json",
+        "fix": "npx tslint -p tsconfig.json --fix"
     },
     "author": "",
     "license": "ISC",
