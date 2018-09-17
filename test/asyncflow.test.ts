@@ -1,7 +1,7 @@
 import {ISubscriber} from '../src/ISubscriber'
 import {SimpleSubscriber}  from '../src/SimpleSubscriber'
 import {SimplePublisher} from '../src/SimplePublisher'
-import {Transformer} from '../src/transformer'
+import {Transformer} from '../src/Transformer'
 import {IfPipe} from '../src/IfPipe'
 
 describe ('asyncflowのテスト', () => {

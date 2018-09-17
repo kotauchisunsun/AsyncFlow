@@ -1,7 +1,7 @@
 import {IfPipe} from './IfPipe';
 import {SimplePublisher} from './SimplePublisher';
 import {SimpleSubscriber} from './SimpleSubscriber';
-import {Transformer} from './transformer';
+import {Transformer} from './Transformer';
 
 const pub = new SimplePublisher(1);
 const loopPipe = new IfPipe((x: number): boolean => x < 100);

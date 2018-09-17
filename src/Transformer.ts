@@ -1,6 +1,6 @@
 import {IContent} from './IContent';
-import {RelayContent} from './RelayContent';
 import {ISubscriber} from './ISubscriber';
+import {RelayContent} from './RelayContent';
 
 export class Transformer<Vin, Vout, S extends ISubscriber<Vout>> implements ISubscriber<Vin> {
     public content: RelayContent<Vout, S>;
@@ -12,10 +12,9 @@ export class Transformer<Vin, Vout, S extends ISubscriber<Vout>> implements ISub
     }
 
     public emit(v: Vin) : void {
-        const self = this;
-        setImmediate(() =>
-            self.content.publish(self.f(v))
-        );
+        setImmediate(() => {
+            this.content.publish(this.f(v));
+        });
     }
 
     public subscribe(content: IContent<Vin>): void {
