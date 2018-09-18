@@ -1,5 +1,5 @@
 import pegjs from 'pegjs';
-import { DuplicateDefinitionError, JsObjectNotFound , NotDefinedVariable } from '../src/AsyncFlowError';
+import { DuplicateDefinitionError, InvalidAttribute , JsObjectNotFound , NotDefinedVariable } from '../src/AsyncFlowError';
 import {
   AsyncFlowExecuter,
   IAst,
@@ -82,6 +82,32 @@ describe('AsyncFlowExecuterのテスト', () => {
         expect(() => {
           executer.run(locals, ast);
         }).toThrow(NotDefinedVariable);
+      });
+
+      it('両方の変数が宣言されている場合', () => {
+        const locals: Locals = { a: 'a', b: 'b'};
+        const ast: IAst = <IAst>parser.parse('var A=a\nvar B=b\nA.c->B');
+        expect(() => {
+          executer.run(locals, ast);
+        }).not.toThrow(NotDefinedVariable);
+      });
+    });
+
+    describe('属性アクセスのテスト', () => {
+      it('規定外の属性の場合', () => {
+        const locals: Locals = { a: {d: 1} , b: 'b'};
+        const ast: IAst = <IAst>parser.parse('var A = a\nvar B=b\nA.d->B');
+        expect(() => {
+          executer.run(locals, ast);
+        }).toThrow(InvalidAttribute);
+      });
+
+      it('jsObj側に属性が存在しない場合', () => {
+        const locals: Locals = { a: {d: 1} , b: 'b'};
+        const ast: IAst = <IAst>parser.parse('var A = a\nvar B=b\nA.c->B');
+        expect(() => {
+          executer.run(locals, ast);
+        }).toThrow();
       });
     });
   });

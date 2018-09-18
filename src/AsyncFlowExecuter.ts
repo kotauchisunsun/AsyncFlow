@@ -1,4 +1,4 @@
-import { DuplicateDefinitionError, JsObjectNotFound , NotDefinedVariable } from './AsyncFlowError';
+import { DuplicateDefinitionError, InvalidAttribute , JsObjectNotFound, NotDefinedVariable} from './AsyncFlowError';
 
 export type Locals = { [key: string]: Object };
 
@@ -16,14 +16,33 @@ interface IVarDef {
     js_obj: string;
 }
 
-interface IPublisherDef {
-    val: IVarDef;
+interface IFlowValDetailDef {
+    name: string;
+}
+
+interface IFlowValDef {
+    node_type: string;
+    detail: IFlowValDetailDef;
+}
+
+interface IFlowFromDetailDef {
+    val: IFlowValDef;
     content: string;
 }
 
-interface IFlowDef {
-    from_var: IAst;
-    to_var: IAst;
+interface IFlowFromVal {
+    node_type: string;
+    detail: IFlowFromDetailDef;
+}
+
+interface IFlowToVal {
+    node_type: string;
+    detail: IFlowValDetailDef;
+}
+
+interface IFlowDetail {
+    from_var: IFlowFromVal;
+    to_var: IFlowToVal;
 }
 
 export class AsyncFlowExecuter {
@@ -54,11 +73,46 @@ export class AsyncFlowExecuter {
                 }
             }
         } else if (ast.node_type === 'flow_def') {
-            const detail: IFlowDef = <IFlowDef>ast.detail;
-            const pub = <IPublisherDef>detail.from_var.detail;
-            const sub = <IVarDef>detail.to_var.detail;
-            if (this.vals[pub.val.var_name] == null || this.vals[sub.var_name] == null) {
+            const detail = <IFlowDetail>ast.detail;
+            const pubName = detail.from_var.detail.val.detail.name;
+            const subName = detail.to_var.detail.name;
+            if (this.vals[pubName] == null || this.vals[subName] == null) {
                 throw new NotDefinedVariable();
+            }
+
+            const pubContent = detail.from_var.detail.content;
+            interface IhasContent {
+                content: Object;
+                trueContent: Object;
+                falseContent: Object;
+            }
+            interface ISubscribe {
+                subscribe(obj: Object): void;
+            }
+            const hasContentObj = <IhasContent>this.vals[pubName];
+            const subscribeObj = <ISubscribe>this.vals[subName];
+
+            if (subscribeObj.subscribe === undefined) {
+                throw new InvalidAttribute();
+            }
+
+            if (pubContent === 'c') {
+                if (hasContentObj.content === undefined) {
+                    throw new InvalidAttribute();
+                }
+                subscribeObj.subscribe(hasContentObj.content);
+            } else if (pubContent === 't') {
+                if (hasContentObj.trueContent === undefined) {
+                    throw new InvalidAttribute();
+                }
+                subscribeObj.subscribe(hasContentObj.trueContent);
+            } else if (pubContent === 'f') {
+                if (hasContentObj.falseContent === undefined) {
+                    throw new InvalidAttribute();
+                }
+                subscribeObj.subscribe(hasContentObj.falseContent);
+            } else {
+                throw new InvalidAttribute();
             }
         }
     }

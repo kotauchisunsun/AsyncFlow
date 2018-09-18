@@ -39,3 +39,17 @@ export class NotDefinedVariable implements Error {
         return `${this.name}:${this.message}`;
     }
 }
+
+export class InvalidAttribute implements Error {
+    public name: string;
+    public message: string;
+
+    constructor() {
+        this.name = 'InvalidAttribute';
+        this.message = '不正な属性です';
+    }
+
+    public toString(): string {
+        return `${this.name}:${this.message}`;
+    }
+}
