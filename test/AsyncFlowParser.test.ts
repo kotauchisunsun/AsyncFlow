@@ -199,7 +199,7 @@ b.c -> c #テスト用
         const flow: Object = {
           node_type: 'flow_def',
           detail: {
-            from: {
+            from_var: {
               node_type: 'publisher',
               detail: {
                 val: {
@@ -211,7 +211,7 @@ b.c -> c #テスト用
                 content: 'c'
               }
             },
-            to: {
+            to_var: {
               node_type: 'val',
               detail: {
                 name: 'B'

@@ -54,8 +54,8 @@ flow_def
     return {
         "node_type" : "flow_def",
         "detail" : {
-            "from" : from,
-            "to" : {
+            "from_var" : from,
+            "to_var" : {
                 "node_type" : "val",
                 "detail" : {
                     "name" : to
