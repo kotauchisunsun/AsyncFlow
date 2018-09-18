@@ -14,6 +14,7 @@ interface IOperationBlock {
 interface IVarDef {
     var_name: string;
     js_obj: string;
+    init: boolean;
 }
 
 interface IFlowValDetailDef {
@@ -45,18 +46,31 @@ interface IFlowDetail {
     to_var: IFlowToVal;
 }
 
+interface IPublisher {
+    publish(): void;
+}
+
 export class AsyncFlowExecuter {
-    public vals: { [key: string]: Object };
+    private vals: { [key: string]: Object };
+    private init: IPublisher[];
 
     constructor() {
         this.vals = {};
+        this.init = [];
     }
 
     public run<T extends IAst>(locals: Locals, ast: T): void {
+        this.executeDeclare(locals, ast);
+        for (const obj of this.init) {
+            obj.publish();
+        }
+    }
+
+    public executeDeclare<T extends IAst>(locals: Locals, ast: T): void {
         if (ast.node_type === 'operation_block') {
             const block: IOperationBlock = <IOperationBlock>ast.detail;
             for (const n of block.list) {
-                this.run(locals, n);
+                this.executeDeclare(locals, n);
             }
         } else if (ast.node_type === 'var_def') {
             const detail: IVarDef = <IVarDef>ast.detail;
@@ -68,6 +82,9 @@ export class AsyncFlowExecuter {
             } else {
                 if (locals[jsObj] != null) {
                     this.vals[name] = locals[jsObj];
+                    if (detail.init) {
+                        this.init.push(<IPublisher>locals[jsObj]);
+                    }
                 } else {
                     throw new JsObjectNotFound();
                 }

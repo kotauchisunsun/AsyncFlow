@@ -95,15 +95,39 @@ describe('AsyncFlowExecuterのテスト', () => {
 
     describe('属性アクセスのテスト', () => {
       it('規定外の属性の場合', () => {
-        const locals: Locals = { a: {d: 1} , b: 'b'};
+        const locals: Locals = { a: {d: 1} , b: {subscribe: 's'} };
         const ast: IAst = <IAst>parser.parse('var A = a\nvar B=b\nA.d->B');
         expect(() => {
           executer.run(locals, ast);
         }).toThrow(InvalidAttribute);
       });
 
-      it('jsObj側に属性が存在しない場合', () => {
-        const locals: Locals = { a: {d: 1} , b: 'b'};
+      it('jsObj側にcontent属性が存在しない場合', () => {
+        const locals: Locals = { a: {d: 1} , b: {subscribe: 's'} };
+        const ast: IAst = <IAst>parser.parse('var A = a\nvar B=b\nA.c->B');
+        expect(() => {
+          executer.run(locals, ast);
+        }).toThrow();
+      });
+
+      it('jsObj側にtrueContent属性が存在しない場合', () => {
+        const locals: Locals = { a: {d: 1} , b: {subscribe: 's'} };
+        const ast: IAst = <IAst>parser.parse('var A = a\nvar B=b\nA.t->B');
+        expect(() => {
+          executer.run(locals, ast);
+        }).toThrow();
+      });
+
+      it('jsObj側にfalseContent属性が存在しない場合', () => {
+        const locals: Locals = { a: {d: 1} , b: {subscribe: 's'} };
+        const ast: IAst = <IAst>parser.parse('var A = a\nvar B=b\nA.f->B');
+        expect(() => {
+          executer.run(locals, ast);
+        }).toThrow();
+      });
+
+      it('subscribe属性が存在しない場合', () => {
+        const locals: Locals = { a: {d: 1} , b: 'b' };
         const ast: IAst = <IAst>parser.parse('var A = a\nvar B=b\nA.c->B');
         expect(() => {
           executer.run(locals, ast);
