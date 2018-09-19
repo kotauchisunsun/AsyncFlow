@@ -1,7 +1,7 @@
-import {IfPipe} from './IfPipe';
-import {SimplePublisher} from './SimplePublisher';
-import {SimpleSubscriber} from './SimpleSubscriber';
-import {Transformer} from './Transformer';
+import {IfPipe} from '../src/IfPipe';
+import {SimplePublisher} from '../src/SimplePublisher';
+import {SimpleSubscriber} from '../src/SimpleSubscriber';
+import {Transformer} from '../src/Transformer';
 
 const pub = new SimplePublisher(1);
 const relay = new Transformer((x: number) => x);

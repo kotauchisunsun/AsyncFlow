@@ -2,3 +2,4 @@ node_modules/
 coverage/
 src/*.js
 test/*.js
+example/*.js

@@ -23,7 +23,7 @@ describe('pegjsのテスト', () => {
         parser = new AsyncFlowParser().parser();
       });
 
-      it('変数宣言のテスト', () => {
+      it('var_defの変数宣言のテスト', () => {
         expect(() => {
           parser.parse('var A = a');
         }).not.toThrow();
@@ -48,9 +48,12 @@ describe('pegjsのテスト', () => {
         expect(() => {
           parser.parse('var _ = ');
         }).toThrow();
+      });
+
+      it('var_def_numberの変数宣言のテスト', () => {
         expect(() => {
-          parser.parse('var b = 0');
-        }).toThrow();
+          parser.parse('var A = 10');
+        }).not.toThrow();
       });
 
       it('フロー宣言のテスト', () => {

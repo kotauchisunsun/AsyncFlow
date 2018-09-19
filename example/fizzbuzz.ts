@@ -1,7 +1,7 @@
-import {IfPipe} from './IfPipe';
-import {SimplePublisher} from './SimplePublisher';
-import {SimpleSubscriber} from './SimpleSubscriber';
-import {Transformer} from './Transformer';
+import {IfPipe} from '../src/IfPipe';
+import {SimplePublisher} from '../src/SimplePublisher';
+import {SimpleSubscriber} from '../src/SimpleSubscriber';
+import {Transformer} from '../src/Transformer';
 
 const pub = new SimplePublisher(1);
 const loopPipe = new IfPipe((x: number): boolean => x < 100);
@@ -24,6 +24,8 @@ const fizzbuzzSub = new SimpleSubscriber<number, void>((x: number): void => {
 const incTrans = new Transformer((x: number): number => x + 1);
 
 loopPipe.subscribe(pub.content);
+incTrans.subscribe(loopPipe.trueContent);
+loopPipe.subscribe(incTrans.content);
 fizzbuzzPipe.subscribe(loopPipe.trueContent);
 fizzbuzzSub.subscribe(fizzbuzzPipe.trueContent);
 fizzPipe.subscribe(fizzbuzzPipe.falseContent);
@@ -31,19 +33,5 @@ fizzSub.subscribe(fizzPipe.trueContent);
 buzzPipe.subscribe(fizzPipe.falseContent);
 buzzSub.subscribe(buzzPipe.trueContent);
 numSub.subscribe(buzzPipe.falseContent);
-
-incTrans.subscribe(loopPipe.trueContent);
-loopPipe.subscribe(incTrans.content);
-
-/*
- pub.content -> loop_swtich
- loop_switch.trueContent -> fizzbuzz_switch
- fizzbuzz_switch.trueContent -> fizzbuzz_sub
- fizzbuzz_switch.falseContent -> fizz_switch
- fizz_switch.trueContent -> fizz_sub
- fizz_switch.falseContent -> buzz_switch
- buzz_swtich.trueContent -> buzz_sub
- buzz_switch.falseContent -> num_sub
-*/
 
 pub.publish();

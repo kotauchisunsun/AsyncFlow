@@ -1,8 +1,6 @@
 import pegjs from 'pegjs';
 
-export class AsyncFlowParser {
-  public parser(): pegjs.Parser {
-    const definition: string = `
+const definition: string = `
 
 doc = blocks:operation_block* line:operation_line? {
     const objs = blocks.filter( x => x != null );
@@ -35,7 +33,7 @@ operation_line
 }
 
 operation_def
-  = var_def / flow_def
+  = var_def / flow_def / var_number_def
 
 var_def
  = "var" _ init:"*"? name:var _ "=" _ js:var {
@@ -48,6 +46,21 @@ var_def
         }
     };
  }
+
+var_number_def
+ = "var" _ init:"*"? name:var _ "=" _ num:number {
+    return {
+        "node_type" : "var_number_def",
+        "detail" : {
+            "var_name" : name,
+            "number" : num,
+            "init": (init ? true : false)
+        }
+    };
+ }
+
+number
+ = num:[0-9]+ { return num.join(""); }
 
 flow_def
   = from:publisher _ "->" _ to:var {
@@ -93,6 +106,8 @@ _ = [ \\t]*
 
 `;
 
+export class AsyncFlowParser {
+  public parser(): pegjs.Parser {
     return pegjs.generate(definition);
   }
 }
