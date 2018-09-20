@@ -5,6 +5,7 @@
         "missing-jsdoc" : false,
         "no-relative-imports" : false,
         "no-console" : false,
+        "max-classes-per-file": [true, 5],
         "typedef" : {
             "arrow-call-signature" : false,
             "variable-declaration" : false
